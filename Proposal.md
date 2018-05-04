@@ -4,7 +4,7 @@
 * Trakkr is a native app that is an emergency alert application. It allows the user to click a button and send out text messages to multiple phone numbers and also send their location if they are in danger. There will be three different levels of alerts that the user can send out. The app will automatically text 911 with the top two levels of alerts. 
 
 ## Problem statement
-* There are too many instances when people are in danger and do not have dime to dial a number or queue a text to send to someone. This app will enable people to send a mass text in a matter of seconds. This app will benefit everyone. 
+* There are too many instances when people are in danger and do not have time to dial a number or queue a text to send to someone. This app will enable people to send a mass text in a matter of seconds. This app will benefit everyone. 
 
 ## How will your project solve this problem?
 * This app will allow the user to send out a mass, emergency text that will alert the people they choose to their current situation and allow them to see the users location and get help. The more people that are aware of the problem, the better the chance of getting help faster. 
