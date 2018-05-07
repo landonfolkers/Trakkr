@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 30,
-    color: 'white'
+    color: 'white',
+    fontFamily: 'notoserif'
   }
 })
