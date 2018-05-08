@@ -1,7 +1,17 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions } from 'react-native'
+import Font from 'expo'
 
 export default class Buttons extends React.Component {
+  state = {
+    fontLoaded: false,
+  }
+  async componentDidMount() {
+    await Expo.Font.loadAsync({
+      'Black Ops': require('../assets/fonts/BlackOpsOne.ttf')
+    })
+    this.setState({ fontLoaded: true })
+  }
   onPressButton() {
     Alert.alert('You tapped the button!')
   }
@@ -10,17 +20,29 @@ export default class Buttons extends React.Component {
       <View style={styles.container}>
         <TouchableHighlight style={styles.button} onPress={this.onPressButton} underlayColor="white">
           <View>
-            <Text style={styles.buttonText}>Level 1</Text>
+            {
+              this.state.fontLoaded ? (
+                <Text style={styles.buttonText}>Level 1</Text>
+              ) : null
+            }
           </View>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button2} onPress={this.onPressButton} underlayColor="white">
           <View>
-            <Text style={styles.buttonText}>Level 2</Text>
+            {
+              this.state.fontLoaded ? (
+                <Text style={styles.buttonText}>Level 2</Text>
+              ) : null
+            }
           </View>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button3} onPress={this.onPressButton} underlayColor="white">
           <View>
-            <Text style={styles.buttonText}>Level 3</Text>
+            {
+              this.state.fontLoaded ? (
+                <Text style={styles.buttonText}>Level 3</Text>
+              ) : null
+            }
           </View>
         </TouchableHighlight>
       </View>
@@ -55,8 +77,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonText: {
-    fontSize: 30,
+    fontSize: 75,
     color: 'white',
-    fontFamily: ''
+    fontFamily: 'Black Ops'
   }
 })
