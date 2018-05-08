@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Alert, AppRegistry } from 'react-native';
 import Buttons from './components/Buttons'
+import { Font } from 'expo'
 
 export default class App extends React.Component {
   render() {

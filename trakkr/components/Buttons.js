@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions} from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions } from 'react-native'
 
 export default class Buttons extends React.Component {
   onPressButton() {
@@ -13,16 +13,16 @@ export default class Buttons extends React.Component {
             <Text style={styles.buttonText}>Level 1</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={this.onPressButton}underlayColor="white">
-        <View>
-          <Text style={styles.buttonText}>Level 2</Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.button3} onPress={this.onPressButton} underlayColor="white">
-      <View>
-        <Text style={styles.buttonText}>Level 3</Text>
-      </View>
-    </TouchableHighlight>
+        <TouchableHighlight style={styles.button2} onPress={this.onPressButton} underlayColor="white">
+          <View>
+            <Text style={styles.buttonText}>Level 2</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button3} onPress={this.onPressButton} underlayColor="white">
+          <View>
+            <Text style={styles.buttonText}>Level 3</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 30,
     color: 'white',
-    fontFamily: 'notoserif'
+    fontFamily: ''
   }
 })
