@@ -50,7 +50,6 @@ export default class Buttons extends React.Component {
   }
 }
 
-var width = Dimensions.get('window').width
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -61,8 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'stretch',
-    width: width,
   },
   button2: {
     flex: 2,
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
   },
   button3: {
     flex: 2,
-    backgroundColor: 'red',
+    backgroundColor: '#DC143C',
     justifyContent: 'center',
     alignItems: 'center'
   },
