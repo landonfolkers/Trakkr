@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert, AppRegistry } from 'react-native'
+import { StyleSheet, Text, View, Button, Alert, AppRegistry, Modal } from 'react-native'
 import Buttons from './components/Buttons'
 import { DrawerNavigator, DrawerItems } from 'react-navigation'
 import { TabNavigator, createBottomTabNavigator } from 'react-navigation'
@@ -19,6 +19,11 @@ class HomeScreen extends React.Component {
 }
 
 class MessagesScreen extends React.Component {
+   constructor(props) {
+    super(props)
+    this.state = { message1: '', message2: '', message3: '' }
+  }
+
   render() {
     return (
       <View style={styles.tabs}>
@@ -29,6 +34,11 @@ class MessagesScreen extends React.Component {
 }
 
 class PeopleScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { number1: '', number2: '', number3: '', number4: '', number5: '', }
+  }
+
   render() {
     return (
       <View style={styles.tabs}>

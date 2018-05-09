@@ -8,10 +8,11 @@ export default class MessagesForm extends React.Component {
         message2: '',
         message3: ''
     }
-
-    handleSubmit = () => {
-        console.log(this.state.message1)
-    }
+    
+      handleSubmit = (event) => {
+        event.preventDefault()
+        console.log(this.state)
+      }
 
     render() {
         return (
@@ -20,29 +21,19 @@ export default class MessagesForm extends React.Component {
                     <Text style={styles.label}>Level 1</Text>
                     <TextInput
                         style={styles.texts}
-                        onChangeText={(message1) => this.setState({ message1 })}
+                        onChangeText={(message1) => this.setState({message1})}
                         value={this.state.message1}
-                    />
-                    <Button
-                        title="Save"
-                        onPress={this.handleSubmit}
-                        color='green'
                     />
                     <Text style={styles.label}>Level 2</Text>
                     <TextInput
                         style={styles.texts}
-                        onChangeText={(message2) => this.setState({ message2 })}
+                        onChangeText={(message2) => this.setState({message2})}
                         value={this.state.message2}
-                    />
-                    <Button
-                        title="Save"
-                        onPress={this.handleSubmit}
-                        color='blue'
                     />
                     <Text style={styles.label}>Level 3</Text>
                     <TextInput
                         style={styles.texts}
-                        onChangeText={(message3) => this.setState({ message3 })}
+                        onChangeText={(message3) => this.setState({message3})}
                         value={this.state.message3}
                     />
                     <Button
@@ -52,12 +43,13 @@ export default class MessagesForm extends React.Component {
                     />
                 </View>
                 <View style={styles.savedMessages}>
-                    <SavedMessages message1={this.state.message1} message2={this.state.message2} message3={this.state.message3} />
+                    <SavedMessages />
                 </View>
             </View>
         )
     }
 }
+
 const styles = StyleSheet.create({
     messagesSection: {
         flex: 1,

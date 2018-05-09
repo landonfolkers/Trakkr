@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions, Modal } from 'react-native'
 import Font from 'expo'
 
 export default class Buttons extends React.Component {
@@ -12,13 +12,23 @@ export default class Buttons extends React.Component {
     })
     this.setState({ fontLoaded: true })
   }
-  onPressButton() {
-    Alert.alert('You tapped the button!')
+   onPressButton = (level) => {
+    Alert.alert(
+      'Confirm ' + level + ' Alert?',
+      '',
+      [
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Confirm', onPress: () => console.log('Confirm Pressed')},
+      ],
+      { cancelable: true }
+    )
   }
+
+  
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this.onPressButton} underlayColor="white">
+        <TouchableHighlight style={styles.button} onPress={() => this.onPressButton('Level 1')} underlayColor="white">
           <View>
             {
               this.state.fontLoaded ? (
@@ -27,7 +37,7 @@ export default class Buttons extends React.Component {
             }
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button2} onPress={this.onPressButton} underlayColor="white">
+        <TouchableHighlight style={styles.button2} onPress={() => this.onPressButton('Level 2')} underlayColor="white">
           <View>
             {
               this.state.fontLoaded ? (
@@ -36,7 +46,7 @@ export default class Buttons extends React.Component {
             }
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button3} onPress={this.onPressButton} underlayColor="white">
+        <TouchableHighlight style={styles.button3} onPress={() => this.onPressButton('Level 3')} underlayColor="white">
           <View>
             {
               this.state.fontLoaded ? (
