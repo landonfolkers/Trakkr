@@ -1,10 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions, Modal } from 'react-native'
 import Font from 'expo'
+import SendSMS from 'react-native-sms'
 
 export default class Buttons extends React.Component {
   state = {
     fontLoaded: false,
+    messages: [],
+    numbers: []
   }
   async componentDidMount() {
     await Expo.Font.loadAsync({
@@ -12,23 +15,37 @@ export default class Buttons extends React.Component {
     })
     this.setState({ fontLoaded: true })
   }
-   onPressButton = (level) => {
+  onPressButton = (level) => {
     Alert.alert(
       'Confirm ' + level + ' Alert?',
       '',
       [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'Confirm', onPress: () => console.log('Confirm Pressed')},
+        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'Confirm', onPress: () => console.log('Confirm Pressed') },
       ],
       { cancelable: true }
     )
   }
 
-  
+  sendMessages = () => {
+    const url = 'http://10.0.0.180:3000/messages'
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers({ "Content-Type": "application/json" }),
+      body: JSON.stringify({
+        message: 'Hello',
+        numbers: '+14028815965'
+      })
+    }).then(response => response.json())
+      .catch(function (error) {
+        console.log(error.message)
+      })
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={() => this.onPressButton('Level 1')} underlayColor="white">
+        <TouchableHighlight style={styles.button} onPress={() => this.sendMessages()} underlayColor="white">
           <View>
             {
               this.state.fontLoaded ? (
