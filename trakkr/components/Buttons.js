@@ -6,10 +6,10 @@ export default class Buttons extends React.Component {
   state = {
     fontLoaded: false,
     messages: ['Message 1', 'Message 2', 'Message 3'],
-    numbers: ['14028815965'],
+    numbers: ['+14025360353','+14028815965'],
     alertMessage: ''
   }
-  
+
   async componentDidMount() {
     await Expo.Font.loadAsync({
       'Black Ops': require('../assets/fonts/BlackOpsOne.ttf')
@@ -82,7 +82,7 @@ export default class Buttons extends React.Component {
           </View>
         </TouchableHighlight>
       </View>
-    );
+    )
   }
 }
 
