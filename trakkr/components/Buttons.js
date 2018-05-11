@@ -1,27 +1,36 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions, Modal } from 'react-native'
+import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions } from 'react-native'
 import Font from 'expo'
-import SendSMS from 'react-native-sms'
 
 export default class Buttons extends React.Component {
   state = {
     fontLoaded: false,
-    messages: [],
-    numbers: []
+    messages: ['Message 1', 'Message 2', 'Message 3'],
+    numbers: ['14028815965'],
+    alertMessage: ''
   }
+  
   async componentDidMount() {
     await Expo.Font.loadAsync({
       'Black Ops': require('../assets/fonts/BlackOpsOne.ttf')
     })
     this.setState({ fontLoaded: true })
   }
+
   onPressButton = (level) => {
+    if (level === 'Level 1') {
+      this.setState({alertMessage: this.state.messages[0]})
+    } else if (level === 'Level 2') {
+      this.setState({alertMessage: this.state.messages[1]})
+    } else {
+      this.setState({alertMessage: this.state.messages[2]})
+    }
     Alert.alert(
       'Confirm ' + level + ' Alert?',
       '',
       [
         { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        { text: 'Confirm', onPress: () => console.log('Confirm Pressed') },
+        { text: 'Confirm', onPress: () => this.sendMessages() },
       ],
       { cancelable: true }
     )
@@ -33,8 +42,8 @@ export default class Buttons extends React.Component {
       method: 'POST',
       headers: new Headers({ "Content-Type": "application/json" }),
       body: JSON.stringify({
-        message: 'Hello',
-        numbers: '+14028815965'
+        message: this.state.alertMessage,
+        numbers: this.state.numbers
       })
     }).then(response => response.json())
       .catch(function (error) {
@@ -45,7 +54,7 @@ export default class Buttons extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={() => this.sendMessages()} underlayColor="white">
+        <TouchableHighlight style={styles.button} onPress={() => this.onPressButton('Level 1')} underlayColor="white">
           <View>
             {
               this.state.fontLoaded ? (
