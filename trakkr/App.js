@@ -6,6 +6,7 @@ import { TabNavigator, createBottomTabNavigator } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MessagesForm from './components/MessagesForm'
 import People from './components/People'
+import Settings from './components/Settings'
 
 
 class HomeScreen extends React.Component {
@@ -52,7 +53,7 @@ class SettingsScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
+        <Settings />
       </View>
     );
   }

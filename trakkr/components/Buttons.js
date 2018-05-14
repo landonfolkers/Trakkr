@@ -1,13 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions } from 'react-native'
 import Font from 'expo'
+import DeviceInfo from 'react-native-device-info'
 
 export default class Buttons extends React.Component {
   state = {
     fontLoaded: false,
     messages: ['Message 1', 'Message 2', 'Message 3'],
-    numbers: ['+14025360353','+14028815965'],
-    alertMessage: ''
+    numbers: ['+14028815965'],
+    alertMessage: '',
+    ID: ''
   }
 
   async componentDidMount() {
@@ -15,15 +17,22 @@ export default class Buttons extends React.Component {
       'Black Ops': require('../assets/fonts/BlackOpsOne.ttf')
     })
     this.setState({ fontLoaded: true })
+    this.getID()
+  }
+
+  getID = () => {
+    const deviceID = DeviceInfo.getDeviceLocale()
+    this.setState({ ID: deviceID })
+    console.log(this.deviceID)
   }
 
   onPressButton = (level) => {
     if (level === 'Level 1') {
-      this.setState({alertMessage: this.state.messages[0]})
+      this.setState({ alertMessage: this.state.messages[0] })
     } else if (level === 'Level 2') {
-      this.setState({alertMessage: this.state.messages[1]})
+      this.setState({ alertMessage: this.state.messages[1] })
     } else {
-      this.setState({alertMessage: this.state.messages[2]})
+      this.setState({ alertMessage: this.state.messages[2] })
     }
     Alert.alert(
       'Confirm ' + level + ' Alert?',
@@ -37,7 +46,7 @@ export default class Buttons extends React.Component {
   }
 
   sendMessages = () => {
-    const url = 'http://10.0.0.180:3000/messages'
+    const url = 'http://10.6.68.84:3000/texts'
     fetch(url, {
       method: 'POST',
       headers: new Headers({ "Content-Type": "application/json" }),
