@@ -1,19 +1,52 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native'
 import SavedMessages from './SavedMessages'
+import Constants from 'expo'
 
 export default class MessagesForm extends React.Component {
     state = {
         message1: '',
         message2: '',
-        message3: ''
+        message3: '',
+        ID: ''
     }
 
     handleSubmit = (event) => {
         this.textInput.clear()
         this.textInput2.clear()
         this.textInput3.clear()
-        console.log(this.state)
+        postData()
+    }
+
+    postData = () => {
+        const url = 'http://10.6.68.84:3000/messages'
+        fetch(url, {
+            method: 'POST',
+            headers: new Headers({ "Content-Type": "application/json" }),
+            body: JSON.stringify({
+                identity: this.state.ID,
+                message1: this.state.message1,
+                message2: this.state.message2,
+                message3: this.state.message3
+            })
+        }).then(response => response.json())
+            .catch(function (error) {
+                console.log(error.message)
+            })
+
+    }
+
+    componentWillMount = () => {
+        this.setState({ ID: Expo.Constants.deviceId })
+    }
+
+    componentDidMount = () => {
+        console.log(this.state.ID)
+        const url = 'http://10.6.68.84:3000/messages/' + this.state.ID
+        fetch(url)
+            .then(response => response.json())
+            .then(messages => this.setState({ currentMessages: messages })
+            )
     }
 
     render() {
@@ -51,9 +84,9 @@ export default class MessagesForm extends React.Component {
                     />
                 </View>
                 <View style={styles.savedMessages}>
-                    <SavedMessages />
+                    <SavedMessages messages={this.state.currentMessages} />
                 </View>
-                </View>
+            </View>
         )
     }
 }

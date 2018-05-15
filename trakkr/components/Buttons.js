@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions } from 'react-native'
-import Font from 'expo'
-import DeviceInfo from 'react-native-device-info'
+import { Font, Constants } from 'expo'
 
 export default class Buttons extends React.Component {
   state = {
@@ -17,13 +16,8 @@ export default class Buttons extends React.Component {
       'Black Ops': require('../assets/fonts/BlackOpsOne.ttf')
     })
     this.setState({ fontLoaded: true })
-    this.getID()
-  }
-
-  getID = () => {
-    const deviceID = DeviceInfo.getDeviceLocale()
-    this.setState({ ID: deviceID })
-    console.log(this.deviceID)
+    this.setState({ ID: Expo.Constants.deviceId })
+    console.log(this.state.ID)
   }
 
   onPressButton = (level) => {

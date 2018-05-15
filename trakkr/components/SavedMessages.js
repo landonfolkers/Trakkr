@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions } from 'react-native'
 
-export default function SavedMessages() {
+export default function SavedMessages({ messages }) {
+
     return (
         <View>
             <Text>Current Messages</Text>

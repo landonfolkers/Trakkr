@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { Constants } from 'expo'
 
 export default class People extends React.Component {
     state = {
@@ -8,6 +9,7 @@ export default class People extends React.Component {
         number3: '',
         number4: '',
         number5: '',
+        ID: ''
     }
 
     handleSubmit = (event) => {
@@ -16,13 +18,36 @@ export default class People extends React.Component {
         this.textInput3.clear()
         this.textInput4.clear()
         this.textInput5.clear()
-        console.log(this.state)
+        postData()
+    }
+
+    postData = () => {
+        const url = 'http://10.6.68.84:3000/numbers'
+        fetch(url, {
+            method: 'POST',
+            headers: new Headers({ "Content-Type": "application/json" }),
+            body: JSON.stringify({
+                identity: this.state.ID,
+                number1: this.state.number1,
+                number2: this.state.number2,
+                number3: this.state.number3,
+                number4: this.state.number4,
+                number5: this.state.number5,
+            })
+        }).then(response => response.json())
+            .catch(function (error) {
+                console.log(error.message)
+            })
+    }
+
+    componentDidMount = () => {
+        this.setState({ ID: Expo.Constants.deviceId })
     }
 
     render() {
         return (
             <View style={styles.people}>
-            <KeyboardAvoidingView behavior="position" enabled>
+                <KeyboardAvoidingView behavior="position" enabled>
                     <Text style={styles.label}>People</Text>
                     <Text style={styles.label}>#1</Text>
                     <TextInput
@@ -69,7 +94,7 @@ export default class People extends React.Component {
                         onPress={this.handleSubmit}
                         color='#DC143C'
                     />
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
             </View>
         )
     }
