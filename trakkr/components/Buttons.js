@@ -5,7 +5,7 @@ import { Font, Constants } from 'expo'
 export default class Buttons extends React.Component {
   state = {
     fontLoaded: false,
-    messages: ['Message 1', 'Message 2', 'Message 3'],
+    messages: [],
     numbers: [],
     alertMessage: '',
     ID: ''
