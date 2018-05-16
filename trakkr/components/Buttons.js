@@ -6,7 +6,7 @@ export default class Buttons extends React.Component {
   state = {
     fontLoaded: false,
     messages: ['Message 1', 'Message 2', 'Message 3'],
-    numbers: ['+14028815965'],
+    numbers: [],
     alertMessage: '',
     ID: ''
   }
@@ -17,7 +17,22 @@ export default class Buttons extends React.Component {
     })
     this.setState({ fontLoaded: true })
     this.setState({ ID: Expo.Constants.deviceId })
-    console.log(this.state.ID)
+    const url = 'http://10.6.68.84:3000/numbers/' + this.state.ID
+    fetch(url)
+      .then(response => response.json())
+      .then(numbers => {
+        numbers.number.map((note) => {
+          this.setState({ numbers: [note.number1, note.number2, note.number3, note.number4, note.number5] })
+        })
+      })
+      const url2 = 'http://10.6.68.84:3000/messages/' + this.state.ID
+      fetch(url2)
+          .then(response => response.json())
+          .then(messages => {
+              messages.message.map((note) => {
+                  this.setState({messages: [note.message1, note.message2, note.message3]})
+              })
+          })
   }
 
   onPressButton = (level) => {

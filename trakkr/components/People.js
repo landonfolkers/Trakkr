@@ -9,22 +9,13 @@ export default class People extends React.Component {
         number3: '',
         number4: '',
         number5: '',
-        ID: ''
+        ID: '',
     }
 
     handleSubmit = (event) => {
-        this.textInput.clear()
-        this.textInput2.clear()
-        this.textInput3.clear()
-        this.textInput4.clear()
-        this.textInput5.clear()
-        postData()
-    }
-
-    postData = () => {
-        const url = 'http://10.6.68.84:3000/numbers'
+        const url = 'http://10.6.68.84:3000/numbers/' + this.state.ID
         fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: new Headers({ "Content-Type": "application/json" }),
             body: JSON.stringify({
                 identity: this.state.ID,
@@ -32,7 +23,7 @@ export default class People extends React.Component {
                 number2: this.state.number2,
                 number3: this.state.number3,
                 number4: this.state.number4,
-                number5: this.state.number5,
+                number5: this.state.number5
             })
         }).then(response => response.json())
             .catch(function (error) {
@@ -40,14 +31,30 @@ export default class People extends React.Component {
             })
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         this.setState({ ID: Expo.Constants.deviceId })
+    }
+
+    componentDidMount = () => {
+        const url = 'http://10.6.68.84:3000/numbers/' + this.state.ID
+        fetch(url)
+            .then(response => response.json())
+            .then(numbers => {
+                numbers.number.map((note) => {
+                    this.setState({number1: note.number1 })
+                    this.setState({number2: note.number2 })
+                    this.setState({number3: note.number3 })
+                    this.setState({number4: note.number4 })
+                    this.setState({number5: note.number5 })
+                    console.log(this.state.currentNumbers)
+                })
+            })
     }
 
     render() {
         return (
             <View style={styles.people}>
-                <KeyboardAvoidingView behavior="position" enabled>
+                <KeyboardAvoidingView behavior="padding" enabled>
                     <Text style={styles.label}>People</Text>
                     <Text style={styles.label}>#1</Text>
                     <TextInput
@@ -101,8 +108,13 @@ export default class People extends React.Component {
 }
 const styles = StyleSheet.create({
     numbers: {
-        height: 40,
+        height: 30,
         margin: 10
+    },
+    savednumbers: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     label: {
         fontFamily: 'Black Ops',

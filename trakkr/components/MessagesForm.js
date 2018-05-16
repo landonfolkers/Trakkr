@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert, AppRegistry, TouchableHighlight, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native'
-import SavedMessages from './SavedMessages'
 import Constants from 'expo'
 
 export default class MessagesForm extends React.Component {
@@ -8,14 +7,24 @@ export default class MessagesForm extends React.Component {
         message1: '',
         message2: '',
         message3: '',
-        ID: ''
+        ID: '',
     }
 
     handleSubmit = (event) => {
-        this.textInput.clear()
-        this.textInput2.clear()
-        this.textInput3.clear()
-        postData()
+        const url = 'http://10.6.68.84:3000/messages/' + this.state.ID
+        fetch(url, {
+            method: 'PUT',
+            headers: new Headers({ "Content-Type": "application/json" }),
+            body: JSON.stringify({
+                identity: this.state.ID,
+                message1: this.state.message1,
+                message2: this.state.message2,
+                message3: this.state.message3
+            })
+        }).then(response => response.json())
+            .catch(function (error) {
+                console.log(error.message)
+            })
     }
 
     postData = () => {
@@ -45,13 +54,20 @@ export default class MessagesForm extends React.Component {
         const url = 'http://10.6.68.84:3000/messages/' + this.state.ID
         fetch(url)
             .then(response => response.json())
-            .then(messages => this.setState({ currentMessages: messages })
-            )
+            .then(messages => {
+                messages.message.map((note) => {
+                    this.setState({message1: note.message1})
+                    this.setState({message2: note.message2})
+                    this.setState({message3: note.message3})
+                    console.log(this.state.currentMessages)
+                })
+            })
     }
 
     render() {
         return (
             <View style={styles.messagesSection}>
+                <KeyboardAvoidingView behavior="padding" enabled>
                 <View>
                     <Text style={styles.label}>Level 1</Text>
                     <TextInput
@@ -83,9 +99,7 @@ export default class MessagesForm extends React.Component {
                         color='#DC143C'
                     />
                 </View>
-                <View style={styles.savedMessages}>
-                    <SavedMessages messages={this.state.currentMessages} />
-                </View>
+                </KeyboardAvoidingView>
             </View>
         )
     }
