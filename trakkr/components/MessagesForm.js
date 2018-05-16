@@ -27,24 +27,6 @@ export default class MessagesForm extends React.Component {
             })
     }
 
-    postData = () => {
-        const url = 'http://10.6.68.84:3000/messages'
-        fetch(url, {
-            method: 'POST',
-            headers: new Headers({ "Content-Type": "application/json" }),
-            body: JSON.stringify({
-                identity: this.state.ID,
-                message1: this.state.message1,
-                message2: this.state.message2,
-                message3: this.state.message3
-            })
-        }).then(response => response.json())
-            .catch(function (error) {
-                console.log(error.message)
-            })
-
-    }
-
     componentWillMount = () => {
         this.setState({ ID: Expo.Constants.deviceId })
     }
@@ -59,7 +41,6 @@ export default class MessagesForm extends React.Component {
                     this.setState({message1: note.message1})
                     this.setState({message2: note.message2})
                     this.setState({message3: note.message3})
-                    console.log(this.state.currentMessages)
                 })
             })
     }
